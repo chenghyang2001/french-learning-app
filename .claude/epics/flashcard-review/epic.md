@@ -1,10 +1,11 @@
 ---
 name: flashcard-review
-status: backlog
+status: open
 created: 2026-06-28T08:00:00Z
+updated: 2026-06-28T12:00:00Z
 progress: 0%
 prd: .claude/prds/flashcard-review.md
-github: (will be set on sync)
+github: https://github.com/chenghyang2001/french-learning-app/issues/1
 ---
 
 # Epic: flashcard-review
