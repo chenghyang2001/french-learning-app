@@ -19,6 +19,14 @@
         Start Quiz
       </button>
       <div id="start-error" class="error-msg" role="alert" hidden></div>
+
+      <!-- 今日閃卡複習 Widget -->
+      <section id="flashcard-widget" style="display:none" aria-live="polite">
+        <a href="/flashcard.html" id="flashcard-link" style="display:none">
+          今日待複習 <strong id="due-count">0</strong> 張 →
+        </a>
+        <p id="flashcard-done" style="display:none">今天的複習已完成！🎉</p>
+      </section>
     </div>
   </section>
 
@@ -58,5 +66,27 @@
 
   <script src="/js/api.js"></script>
   <script src="/js/quiz.js"></script>
+  <script>
+    (async function () {
+      try {
+        const res = await fetch("/api/words?due=true");
+        if (!res.ok) return;
+        const data = await res.json();
+        const count = data.count ?? (data.words ? data.words.length : 0);
+
+        const widget = document.getElementById("flashcard-widget");
+        widget.style.display = "";
+
+        if (count > 0) {
+          document.getElementById("due-count").textContent = count;
+          document.getElementById("flashcard-link").style.display = "";
+        } else {
+          document.getElementById("flashcard-done").style.display = "";
+        }
+      } catch (_) {
+        // API 失敗時靜默隱藏，不中斷首頁
+      }
+    })();
+  </script>
 </body>
 </html>
