@@ -1,0 +1,286 @@
+/* flashcard.css — 閃卡複習頁樣式（法語藍白主題） */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background: #f0f4f8;
+  color: #1a202c;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+/* ──────────────────────────────────────────────────────────
+   Header
+   ────────────────────────────────────────────────────────── */
+header {
+  max-width: 520px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+header a {
+  color: #4299e1;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+header a:hover {
+  text-decoration: underline;
+}
+
+header h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2d3748;
+}
+
+/* ──────────────────────────────────────────────────────────
+   Flashcard App 容器
+   ────────────────────────────────────────────────────────── */
+#flashcard-app {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+#progress {
+  font-size: 0.85rem;
+  color: #718096;
+  text-align: center;
+  margin-bottom: 1rem;
+  min-height: 1.25rem;
+}
+
+/* ──────────────────────────────────────────────────────────
+   閃卡容器 — 3D 視角
+   ────────────────────────────────────────────────────────── */
+.card-container {
+  perspective: 1000px;
+  width: 100%;
+  max-width: 400px;
+  height: 220px;
+  margin: 0 auto 1.5rem;
+}
+
+/* 翻轉層：transition 使動畫流暢 */
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+/* .flipped 由 JS 切換，觸發 3D 旋轉 */
+.card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+/* 正面與背面共用：backface-visibility: hidden 讓另一面不透出 */
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 正面：法文（淺藍背景） */
+.card-front {
+  background: #e8f4fd;
+  color: #1a5276;
+}
+
+/* 背面：中文（深藍背景），需先旋轉 180° 在 preserve-3d 空間中朝外 */
+.card-back {
+  background: #1a5276;
+  color: #ffffff;
+  transform: rotateY(180deg);
+}
+
+.card-front span,
+.card-back span {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+.card-front small {
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ──────────────────────────────────────────────────────────
+   操作按鈕區
+   ────────────────────────────────────────────────────────── */
+#controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#btn-flip {
+  padding: 0.75rem 2rem;
+  background: #4299e1;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    transform 0.1s;
+  min-width: 160px;
+}
+
+#btn-flip:hover {
+  background: #3182ce;
+  transform: translateY(-1px);
+}
+
+#btn-flip:focus-visible {
+  outline: 3px solid #90cdf4;
+  outline-offset: 2px;
+}
+
+#review-buttons {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  max-width: 320px;
+}
+
+.btn-danger,
+.btn-success {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    transform 0.1s;
+}
+
+.btn-danger {
+  background: #e53e3e;
+  color: #ffffff;
+}
+
+.btn-danger:hover {
+  background: #c53030;
+  transform: translateY(-1px);
+}
+
+.btn-success {
+  background: #38a169;
+  color: #ffffff;
+}
+
+.btn-success:hover {
+  background: #276749;
+  transform: translateY(-1px);
+}
+
+.btn-danger:focus-visible,
+.btn-success:focus-visible {
+  outline: 3px solid #90cdf4;
+  outline-offset: 2px;
+}
+
+/* ──────────────────────────────────────────────────────────
+   複習摘要區（初始隱藏）
+   ────────────────────────────────────────────────────────── */
+#summary {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  text-align: center;
+}
+
+#summary h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+#summary p {
+  font-size: 1rem;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+}
+
+#summary strong {
+  color: #2d3748;
+  font-weight: 700;
+}
+
+#summary a.btn-primary {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.75rem 2rem;
+  background: #4299e1;
+  color: #ffffff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+#summary a.btn-primary:hover {
+  background: #3182ce;
+}
+
+/* ──────────────────────────────────────────────────────────
+   工具 class
+   ────────────────────────────────────────────────────────── */
+.hidden {
+  display: none !important;
+}
+
+/* ──────────────────────────────────────────────────────────
+   RWD
+   ────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .card-container {
+    height: 180px;
+  }
+
+  .card-front span,
+  .card-back span {
+    font-size: 1.5rem;
+  }
+
+  #review-buttons {
+    max-width: 100%;
+  }
+}
