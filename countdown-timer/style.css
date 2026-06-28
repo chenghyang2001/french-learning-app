@@ -1,0 +1,212 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #1a1a2e;
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+/* ── 新增表單 ── */
+
+.add-form {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+}
+
+input[type="text"],
+input[type="datetime-local"] {
+  padding: 0.6rem 0.8rem;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+input[type="text"]:focus,
+input[type="datetime-local"]:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+}
+
+.form-error {
+  color: #e74c3c;
+  font-size: 0.875rem;
+  min-height: 1.2em;
+  margin-bottom: 0.5rem;
+}
+
+.btn-primary {
+  background: #4a90e2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.65rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.1s;
+}
+
+.btn-primary:hover {
+  background: #357abd;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* ── 活動清單 ── */
+
+.activity-list-section {
+  margin-top: 0.5rem;
+}
+
+.empty-state {
+  color: #999;
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 0.95rem;
+}
+
+/* 活動卡片 */
+
+.activity-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: box-shadow 0.2s;
+}
+
+.activity-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.activity-card.expired {
+  opacity: 0.65;
+  border-left: 4px solid #e74c3c;
+}
+
+.activity-card.active {
+  border-left: 4px solid #2ecc71;
+}
+
+.card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #1a1a2e;
+  word-break: break-word;
+}
+
+.card-target {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 0.6rem;
+}
+
+.card-countdown {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #4a90e2;
+}
+
+.card-countdown.expired-label {
+  color: #e74c3c;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.btn-delete {
+  background: none;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  color: #999;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.btn-delete:hover {
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+/* ── 響應式 ── */
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .activity-card {
+    flex-direction: column;
+  }
+
+  .btn-delete {
+    align-self: flex-end;
+  }
+}

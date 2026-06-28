@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>French Vocab Quiz</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+
+  <!-- ── View 1: 開始畫面 ── -->
+  <section id="view-start" class="view active" role="main" aria-label="Quiz start screen">
+    <div class="card">
+      <h1>French Vocab Quiz</h1>
+      <p>Test your French vocabulary with 10 multiple-choice questions. Each question presents a French word — pick the correct English translation.</p>
+      <div id="word-count-info" class="word-count" aria-live="polite"></div>
+      <button id="btn-start" class="btn-primary" disabled aria-disabled="true">
+        Start Quiz
+      </button>
+      <div id="start-error" class="error-msg" role="alert" hidden></div>
+    </div>
+  </section>
+
+  <!-- ── View 2: 測驗畫面 ── -->
+  <section id="view-quiz" class="view" role="main" aria-label="Quiz question screen" aria-live="polite">
+    <div class="card">
+      <div class="progress-bar-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" aria-label="Quiz progress">
+        <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+      </div>
+      <p id="question-num" class="question-num">Question 1 of 10</p>
+      <p id="french-word" class="french-word" lang="fr" aria-label="French word to translate"></p>
+      <p class="prompt-label">What does this mean in English?</p>
+      <div class="options-grid" role="group" aria-label="Answer options">
+        <button id="option-a" class="option-btn" data-option="a" aria-label="Option A"></button>
+        <button id="option-b" class="option-btn" data-option="b" aria-label="Option B"></button>
+        <button id="option-c" class="option-btn" data-option="c" aria-label="Option C"></button>
+        <button id="option-d" class="option-btn" data-option="d" aria-label="Option D"></button>
+      </div>
+      <div id="quiz-error" class="error-msg" role="alert" hidden></div>
+    </div>
+  </section>
+
+  <!-- ── View 3: 結果畫面 ── -->
+  <section id="view-results" class="view" role="main" aria-label="Quiz results screen">
+    <div class="card">
+      <h2>Quiz Complete!</h2>
+      <p id="score-display" class="score-display" aria-live="polite"></p>
+      <p id="score-label" class="score-label"></p>
+      <div id="perfect-msg" class="perfect-msg" hidden>
+        Perfect score! Outstanding work!
+      </div>
+      <ul id="missed-list" class="missed-list" aria-label="Words to review" hidden></ul>
+      <button id="btn-again" class="btn-primary">Play Again</button>
+      <div id="results-error" class="error-msg" role="alert" hidden></div>
+    </div>
+  </section>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/quiz.js"></script>
+</body>
+</html>

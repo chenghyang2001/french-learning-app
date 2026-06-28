@@ -1,0 +1,17 @@
+{
+  "name": "french-quiz",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --no-warnings --test tests/**/*.test.js",
+    "init": "node db/init.js",
+    "seed": "node db/seed-test.js"
+  },
+  "dependencies": {
+    "express": "^4"
+  },
+  "devDependencies": {
+    "puppeteer": "^25.2.1"
+  }
+}

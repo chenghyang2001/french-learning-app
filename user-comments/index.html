@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>French Learning App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>French Learning App</h1>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" aria-label="文章清單">
+      <h2 class="sidebar-title">文章清單</h2>
+      <nav id="article-nav">
+        <p class="empty-state">載入中...</p>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <section id="article-detail" aria-label="文章內容">
+        <p class="empty-state">請從左側選擇一篇文章</p>
+      </section>
+
+      <section id="comments-section" aria-label="評論區" hidden>
+        <h2 class="section-title">評論</h2>
+
+        <div id="comments-list">
+          <!-- 評論由 app.js 動態插入 -->
+        </div>
+
+        <div class="new-comment-form">
+          <h3 class="form-title">發表評論</h3>
+          <textarea
+            id="new-comment"
+            placeholder="輸入評論內容（最多 500 字）..."
+            rows="4"
+            aria-label="新增評論"
+          ></textarea>
+          <div class="form-actions">
+            <button id="submit-comment" type="button" disabled>送出評論</button>
+          </div>
+          <p class="error-msg" id="comment-error" role="alert" aria-live="polite"></p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
