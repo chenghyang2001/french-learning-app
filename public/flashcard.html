@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>法語閃卡複習</title>
+    <link rel="stylesheet" href="/css/flashcard.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">← 回首頁</a>
+      <h1>閃卡複習</h1>
+    </header>
+
+    <main id="flashcard-app">
+      <p id="progress">載入中...</p>
+
+      <!-- 閃卡容器 -->
+      <div class="card-container" id="card-container">
+        <div class="card-inner" id="card-inner">
+          <div class="card-front">
+            <span id="word-french"></span>
+            <small id="word-pos"></small>
+          </div>
+          <div class="card-back">
+            <span id="word-english"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 操作按鈕 -->
+      <div id="controls">
+        <button id="btn-flip">翻面 👀</button>
+        <div id="review-buttons" style="display: none">
+          <button id="btn-unknown" class="btn-danger">不認識 ✗</button>
+          <button id="btn-known" class="btn-success">認識 ✓</button>
+        </div>
+      </div>
+
+      <!-- 複習摘要（初始隱藏） -->
+      <div id="summary" class="hidden">
+        <h2>複習完成！🎉</h2>
+        <p>認識：<strong id="count-known">0</strong> 張</p>
+        <p>不認識：<strong id="count-unknown">0</strong> 張</p>
+        <a href="/" class="btn-primary">回首頁</a>
+      </div>
+    </main>
+
+    <script src="/js/flashcard.js" type="module"></script>
+  </body>
+</html>

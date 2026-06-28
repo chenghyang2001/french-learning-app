@@ -53,4 +53,44 @@ router.get("/", (req, res) => {
   }
 });
 
+// PATCH /:id/review — 記錄複習結果，依 SM-2 更新 srs_interval 與 next_review_at
+router.patch("/:id/review", (req, res) => {
+  const id = Number(req.params.id);
+  const { known } = req.body;
+
+  // 驗證 id 必須是正整數，防止非法路由參數污染 SQL
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({ error: "無效的 id" });
+  }
+  // known 必須是 boolean，字串 "true" 不被接受（避免型別誤判）
+  if (typeof known !== "boolean") {
+    return res.status(400).json({ error: "known 必須是 boolean" });
+  }
+
+  try {
+    const db = getDb();
+    const word = db
+      .prepare("SELECT srs_interval FROM words WHERE id = ?")
+      .get(id);
+    if (!word) {
+      return res.status(404).json({ error: "找不到單字" });
+    }
+
+    // SM-2 簡化版：答對則間隔 ×2（上限 30 天），答錯則重置為 1 天
+    const newInterval = known ? Math.min(word.srs_interval * 2, 30) : 1;
+    db.prepare(
+      "UPDATE words SET srs_interval = ?, next_review_at = date('now', '+' || ? || ' days') WHERE id = ?",
+    ).run(newInterval, newInterval, id);
+
+    const updated = db
+      .prepare(
+        "SELECT id, srs_interval, next_review_at FROM words WHERE id = ?",
+      )
+      .get(id);
+    return res.json(updated);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;
